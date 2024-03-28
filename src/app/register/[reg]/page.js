@@ -53,7 +53,6 @@ export default function Page({params}) {
                 </div>
                 <div>
                 <button className='border-2 border-black p-1 px-3 rounded-lg text-xl hover:bg-black hover:text-white transition-colors duration-200'>Radera fordonet</button>
-
                 </div>
                 
           </div>
