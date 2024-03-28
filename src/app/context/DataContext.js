@@ -6,43 +6,33 @@ import * as api from './api/dbCalls';
 export const VehicleContext = createContext(null);
 
 export default function VehicleContextProvider({children}) {
-    const [allVehicles, setAllVehicles] = useState([]);
 
-    useEffect(() => {
-        async function fetchVehicles() {
-            const vehicles = await api.getVehicles();
-            setAllVehicles(vehicles);
-        }
-
-        fetchVehicles();
-    }, []);
+    const fetchVehicles = async () => {
+        const vehicles = await api.getVehicles();
+        return vehicles;
+    }
 
     const registerVehicle = async (vehicle) => {
-        await api.registerVehicle(vehicle);
-        const vehicles = await api.getVehicles();
-        setAllVehicles(vehicles);
+        try { await api.registerVehicle(vehicle); console.log(vehicle.registration + ' registered in DB'); } catch(e) { console.log(e); }
     };
 
     const updateVehicle = async (vehicle) => {
-        await api.updateVehicle(vehicle);
-        const vehicles = await api.getVehicles();
-        setAllVehicles(vehicles);
+        try { await api.updateVehicle(vehicle); console.log(vehicle.registration + ' updated in DB'); } catch(e) { console.log(e); }
     };
 
     const deleteVehicle = async (id) => {
-        await api.deleteVehicle(id);
-        const vehicles = await api.getVehicles();
-        setAllVehicles(vehicles);
+       try { await api.deleteVehicle(id); console.log(id + ' deleted from DB'); } catch(e) { console.log(e) }
     }
 
-    const findByRegister = async (registration) => {
-        return allVehicles.filter(vehicle => vehicle.registration === registration);
+    async function findByRegister(registration) {
+        let x = await fetchVehicles();
+        return x.filter(vehicle => vehicle.registration === registration);
     }
 
    return (
     <VehicleContext.Provider 
     value={
-      {allVehicles, 
+      {fetchVehicles, 
       registerVehicle, 
       updateVehicle, 
       deleteVehicle, 

@@ -8,7 +8,6 @@ export default function Home() {
 
  const router = useRouter();
  const [register, setRegister] = useState("");
-
  const [showMenu, setShowMenu ] = useState(false);
  const [ searchText, setSearchText ] = useState("");
 
