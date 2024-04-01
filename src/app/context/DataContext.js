@@ -22,6 +22,7 @@ export default function VehicleContextProvider({children}) {
 
     const deleteVehicle = async (id) => {
        try { await api.deleteVehicle(id); console.log(id + ' deleted from DB'); } catch(e) { console.log(e) }
+       
     }
 
     async function findByRegister(registration) {

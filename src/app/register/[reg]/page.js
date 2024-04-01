@@ -2,10 +2,13 @@
 
 import React, {useContext, useState, useEffect} from 'react'
 import { VehicleContext } from '../../context/DataContext';
+import { useRouter } from 'next/navigation';
 
 export default function Page({params}) {
     const { findByRegister } = useContext(VehicleContext);
+    const { deleteVehicle } = useContext(VehicleContext);
     let [ vehicle, setVehicle ] = useState([]);
+    const router = useRouter();
 
     useEffect(() => {
         async function fetchVehicle() {
@@ -15,6 +18,13 @@ export default function Page({params}) {
 
         fetchVehicle();
     }, []);
+
+
+
+    function deletingVehicle() {
+        deleteVehicle(vehicle.id);
+        router.push('/list');
+    }
 
   return (
     <>
@@ -52,7 +62,7 @@ export default function Page({params}) {
                 <button className='border-2 border-black p-1 px-10 rounded-lg text-xl hover:bg-black hover:text-white transition-colors duration-200'>Redigera</button>
                 </div>
                 <div>
-                <button className='border-2 border-black p-1 px-3 rounded-lg text-xl hover:bg-black hover:text-white transition-colors duration-200'>Radera fordonet</button>
+                <button  onClick={deletingVehicle} className='border-2 border-black p-1 px-3 rounded-lg text-xl hover:bg-black hover:text-white transition-colors duration-200'>Radera fordonet</button>
                 </div>
                 
           </div>

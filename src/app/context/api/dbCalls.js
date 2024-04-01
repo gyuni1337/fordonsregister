@@ -52,6 +52,9 @@ async function deleteVehicle(id) {
     const db = await pool.getConnection();
     try {
         await db.query('DELETE FROM vehicles WHERE id = ?', [id]);
+        await db.query("ALTER TABLE vehicles AUTO_INCREMENT = 1");
+        await db.query("SET @num := 0");
+        await db.query("UPDATE vehicles SET id = @num := (@num+1)");
         db.release();
         return true;
     } catch(e) {
