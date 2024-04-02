@@ -18,7 +18,7 @@ export default function Home() {
       <h2 className="text-3xl mb-2 hover:-translate-y-1 transition-all cursor-default ">FORDONSREGISTER</h2>
       <div className="flex gap-2 items-center">
       <div className="flex flex-col">
-      <input type="text" className="text-black p-3 w-[500px] h-12 rounded-lg text-xl" onChange={(e) => setRegister(e.target.value)} onKeyDown={(e) => { if(e.key === 'Enter' && register !== "") router.push('/lookup/' + register) }} onMouseDown={() => setSearchText('Tryck på enter för att söka!')}  placeholder="Registrationsnummer" />
+      <input type="text" className="text-black p-3 w-[500px] h-12 rounded-lg text-xl" onChange={(e) => setRegister(e.target.value)} onKeyDown={(e) => { if(e.key === 'Enter' && register !== "") router.push('/lookup/' + register.replaceAll(/\s/g,'')) }} onMouseDown={() => setSearchText('Tryck på enter för att söka!')}  placeholder="Registrationsnummer" />
       { searchText !== "" && <p className="text-xl absolute mt-14 text-white">{searchText}</p>}      
       </div>
       <div className="flex flex-col">

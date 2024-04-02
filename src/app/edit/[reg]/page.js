@@ -22,15 +22,19 @@ export default function Page({params}) {
 
     useEffect(() => {
         async function fetchVehicle() {
-            const data = await findByRegister(params.reg);
-            setRegistration(data[0].registration); 
-            setBrand(data[0].brand);
-            setModel(data[0].model);
-            setYear(data[0].year);
-            setColor(data[0].color);
-            setWheels(data[0].wheels);
-            setType(data[0].type);
-            setId(data[0].id);
+            try {
+                const data = await findByRegister(params.reg);
+                setRegistration(data[0].registration); 
+                setBrand(data[0].brand);
+                setModel(data[0].model);
+                setYear(data[0].year);
+                setColor(data[0].color);
+                setWheels(data[0].wheels);
+                setType(data[0].type);
+                setId(data[0].id);
+            } catch (e) {
+                return;
+            }
         }
 
         fetchVehicle();
@@ -51,6 +55,7 @@ export default function Page({params}) {
 
   return (
         <>
+        { registration ? (
            <div className='w-[800px] text-black rounded-2xl pb-20 bg-white mx-auto mt-20'>
           <h2 className='text-center text-3xl pt-10 font-medium '>Redigera Fordon</h2>
           <div className='mx-52 mt-10 flex flex-col gap-2'>
@@ -67,6 +72,9 @@ export default function Page({params}) {
             </div>
           </div>
       </div>
+
+        ) : <div className='text-3xl text-center mt-20'>NO SUCH VEHICLE WAS FOUND</div>
+    }
         </>
   )
 }

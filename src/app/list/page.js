@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { VehicleContext } from '../context/DataContext'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 export default function Page() {
 
   const {fetchVehicles} = React.useContext(VehicleContext);
@@ -40,7 +41,6 @@ export default function Page() {
   ,[]);
 
     useEffect(() => {
-
     if (!query || query == '') {
       // console.log(data.sort((a, b) => a.id - b.id));
       setVehicles(data);
@@ -70,13 +70,18 @@ export default function Page() {
     <>
     <div className='text-white mx-[24%] mt-32'>
       <div className='flex flex-col gap-2'>
-        <div className='flex gap-5 mb-5'>
+        <div className='flex justify-between mb-5'>
+          <div className='flex gap-5 items-center'>
           <h3 className='text-3xl'>Alla Fordon</h3>
           <input type='text' className='text-black p-2 px-4 rounded-lg' placeholder='Sök fordon' onChange={(e) => setQuery(e.target.value)} />
+          </div>
+          <div className='flex gap-3 items-center'>
+            <Link href='/' className='border-2 hover:bg-white hover:text-black transition-colors border-white p-2 px-4 rounded' >Main Page</Link>
+            <Link href='/add' className='border-2 hover:bg-white hover:text-black transition-colors border-white p-2 px-4 rounded' >Lägg till Fordon</Link>
+          </div>
         </div>
         <div className='text-white flex flex-col gap-3'>
           {vehicles.length > 0 ? vehicles[currentPage].map((vehicle, index) => {
-            console.log(vehicle);
             return (
               <div className='flex gap-2 border-2 justify-between border-white p-2 rounded' key={index}>
                 <div className='flex items-center gap-2'>
@@ -100,7 +105,7 @@ export default function Page() {
               <button 
                 key={index} 
                 onClick={() => setCurrentPage(index)}
-                className={`p-1 px-2 rounded ${currentPage === index ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
+                className={`p-1 px-2 rounded ${currentPage === index ? 'bg-gray-400 text-white' : 'bg-white text-black'}`}
               >
                 {index + 1}
               </button>

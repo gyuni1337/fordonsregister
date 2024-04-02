@@ -7,13 +7,17 @@ import { useRouter } from 'next/navigation';
 export default function Page({params}) {
     const { findByRegister } = useContext(VehicleContext);
     const { deleteVehicle } = useContext(VehicleContext);
-    let [ vehicle, setVehicle ] = useState([]);
+    const [ vehicle, setVehicle ] = useState();
     const router = useRouter();
 
     useEffect(() => {
         async function fetchVehicle() {
+          try {
             const data = await findByRegister(params.reg);
             setVehicle(data[0]);
+          } catch(e) {
+            return;
+          }
         }
 
         fetchVehicle();
@@ -30,7 +34,7 @@ export default function Page({params}) {
 
   return (
     <>
-    { vehicle !== undefined ? (
+    { vehicle ? (
     <div className='flex justify-center w-max mx-auto text-center hover:-translate-y-1 transition-transform mt-32 '>
       <div className=' h-[600px] text-black p-20 bg-white rounded-2xl shadow-md shadow-white'>
         <h1 className='text-3xl mb-5'>Fordonsdata</h1>
@@ -74,9 +78,9 @@ export default function Page({params}) {
     </div>
 
     ) : 
-      <>
-
-      </>
+      <div className='text-3xl text-center mt-20'>
+        NO SUCH VEHICLE WAS FOUND
+      </div>
   }
     </>
   )
