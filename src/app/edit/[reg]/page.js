@@ -44,7 +44,6 @@ export default function Page({params}) {
         } else {
             let vehicle = {registration, brand, model, year, color, wheels, type, id};
             updateVehicle(vehicle);
-            setText('Ändringarna har sparats!');
             router.push('/list');
         } 
     }

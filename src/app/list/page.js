@@ -1,8 +1,19 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import { VehicleContext } from '../context/DataContext'
 export default function Page() {
 
+  const {fetchVehicles} = React.useContext(VehicleContext);
+
   
+
+  useEffect(() => {
+
+    fetchVehicles().then((vehicles) => {
+      console.log(vehicles);
+    });
+
+  }
+  ,[]);
 
 
   return (

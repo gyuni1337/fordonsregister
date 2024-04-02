@@ -19,7 +19,9 @@ export default function Page({params}) {
         fetchVehicle();
     }, []);
 
-
+    function editinVehicle() {
+      router.push('/edit/' + params.reg);
+    }
 
     function deletingVehicle() {
         deleteVehicle(vehicle.id);
@@ -59,7 +61,7 @@ export default function Page({params}) {
           </div>
           <div className='flex flex-col gap-2 justify-center mt-10'>
                 <div>
-                <button className='border-2 border-black p-1 px-10 rounded-lg text-xl hover:bg-black hover:text-white transition-colors duration-200'>Redigera</button>
+                <button onClick={editinVehicle} className='border-2 border-black p-1 px-10 rounded-lg text-xl hover:bg-black hover:text-white transition-colors duration-200'>Redigera</button>
                 </div>
                 <div>
                 <button  onClick={deletingVehicle} className='border-2 border-black p-1 px-3 rounded-lg text-xl hover:bg-black hover:text-white transition-colors duration-200'>Radera fordonet</button>
