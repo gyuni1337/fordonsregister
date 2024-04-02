@@ -2,6 +2,7 @@
 
 import React, { useState, useContext} from 'react'
 import { VehicleContext } from '../context/DataContext';
+import { useRouter} from 'next/navigation';
 
 export default function Page() {
 
@@ -14,7 +15,7 @@ export default function Page() {
   let [ type, setType ] = useState('');
   let [ text, setText ] = useState('');
   let { registerVehicle } = useContext(VehicleContext);
-
+  const router = useRouter();
 
   function addingVehicle() {
     if(registration === '' || brand === '' || model === '' || year === '' || color === '' || wheels === '' || type === '') {
@@ -22,6 +23,7 @@ export default function Page() {
     } else {
       let vehicle = {registration, brand, model, year, color, wheels, type};
       registerVehicle(vehicle);
+      router.push('/list');
     }
   }
 

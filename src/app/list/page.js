@@ -44,8 +44,8 @@ export default function Page() {
     if (!query || query == '') {
       // console.log(data.sort((a, b) => a.id - b.id));
       setVehicles(data);
-      console.log(vehicles);
     } else {
+      setCurrentPage(0);
       const filteredVehicles = data.map((page) => {
         return page.filter((vehicle) => {
           return vehicle.brand.toLowerCase().includes(query.toLowerCase()) || vehicle.model.toLowerCase().includes(query.toLowerCase()) || vehicle.registration.toLowerCase().includes(query.toLowerCase()) || vehicle.year === query.toLowerCase();
@@ -58,7 +58,6 @@ export default function Page() {
         }
       }
       const allSet = setupData(all);
-      console.log(allSet);
       // console.log(setupData(filteredMovies));
       setVehicles(allSet);
     }
